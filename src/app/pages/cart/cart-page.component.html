@@ -1,0 +1,27 @@
+<div class="page-container">
+  <h1 class="page-title">Cart</h1>
+
+  <ng-container *ngIf="(products.length); else empty_cart">
+    <div class="cart-container">
+      <ng-container *ngFor="let product of products;">
+        <app-cart
+          (removeItem)="removeProduct($event)"
+          [(totalPrice)]="totalPrice"
+          [product]="product"
+        ></app-cart>
+      </ng-container>
+
+      <div class="footer">
+        <div class="cart-total">
+          Total products: <span>{{ totalPrice }}</span>
+        </div>
+        <!--    NOTE: temporary commented-->
+        <!--    <button class="order-btn os-btn-primary" data-element="orderBtn">Order</button>-->
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #empty_cart>
+  There are no products in the cart
+</ng-template>

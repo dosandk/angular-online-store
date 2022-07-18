@@ -1,0 +1,24 @@
+<ul class="cart-list">
+  <li class="item-row">
+    <div class="item-preview">
+      <img src="{{ product.images[0].url }}" alt="{{product.title}}"/>
+    </div>
+    <div class="item-name">
+      {{ product.title }}
+    </div>
+    <div class="item-counter">
+      <button class="count-btn" (click)="removeCount()">
+        <i class="bi bi-dash-circle"></i>
+      </button>
+      <span>
+        {{ counter }}
+      </span>
+      <button class="count-btn" (click)="addCount()">
+        <i class="bi bi-plus-circle"></i>
+      </button>
+    </div>
+    <div class="item-price">
+      {{ product.price * counter }}
+    </div>
+  </li>
+</ul>
