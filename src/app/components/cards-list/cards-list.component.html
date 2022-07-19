@@ -1,1 +1,12 @@
-<p>cards-list works!</p>
+<ng-container *ngIf="(products.length); else empty_list">
+  <div class="os-products-list">
+    <app-card
+      *ngFor="let product of products;"
+      [product]="product"
+    ></app-card>
+  </div>
+</ng-container>
+
+<ng-template #empty_list>
+  There are no products in the list
+</ng-template>

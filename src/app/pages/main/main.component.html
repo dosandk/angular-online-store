@@ -1,3 +1,32 @@
 <div class="page-container">
   <h1 class="page-title">Main</h1>
+
+  <div class="filters-panel">
+    <app-search></app-search>
+
+    <div class="list-view-controls">
+      <i class="bi bi-list"
+         (click)="changeView('table')"
+         [ngClass]="{'active' : viewMode === 'table'}"></i>
+      <i class="bi bi-grid"
+         (click)="changeView('grid')"
+         [ngClass]="{'active' : viewMode === 'grid'}"></i>
+    </div>
+  </div>
+
+  <app-infinity-list (scrolled)="onScroll($event)" *ngIf="(products.length); else no_products">
+<!-- TODO: check how to dynamically pass app-card to cards-list  -->
+<!-- <app-cards-list [products]="products"></app-cards-list>-->
+    <div class="os-products-list" *ngIf="(products.length);">
+      <app-card
+        *ngFor="let product of products;"
+        [product]="product"
+      ></app-card>
+    </div>
+
+  </app-infinity-list>
 </div>
+
+<ng-template #no_products>
+  There are no products in the cart
+</ng-template>

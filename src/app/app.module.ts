@@ -7,7 +7,7 @@ import {MainModule} from "./pages/main/main.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@ import {products} from '../../fixtures/products';
   styleUrls: ['./cart-page.component.scss']
 })
 export class CartPageComponent implements OnInit {
-  products: Product[] = []
+  products: Product[] = [];
   totalPrice!: number;
 
   constructor() {}

@@ -1,1 +1,19 @@
-<p>pagination works!</p>
+<nav class="os-pagination" *ngIf="totalPages">
+  <a href="#" class="page-link previous" (click)="goToPrevPage($event)">
+    <i class="bi bi-chevron-left"></i>
+  </a>
+
+  <ul class="page-list">
+    <ng-container *ngFor="let item of createRange(totalPages); let pageIndex = index">
+      <li (click)="goToPage($event, pageIndex)">
+        <a href="#" class="page-link" [ngClass]="{'active' : pageIndex === activePageIndex}">
+          {{ pageIndex + 1 }}
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+
+  <a href="#" class="page-link next" (click)="goToNextPage($event)">
+    <i class="bi bi-chevron-right"></i>
+  </a>
+</nav>

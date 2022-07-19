@@ -1,1 +1,34 @@
-<p>card works!</p>
+<div class="os-product-card">
+  <div class="os-product-img"
+       [ngStyle]="{ backgroundImage: 'url(' + product.images[0].url + ')' }"></div>
+
+  <div class="os-product-content">
+    <div class="os-product-price-wrapper">
+      <div class="os-product-rating">
+        <span>{{ product.rating }}</span>
+        <i class="bi bi-star"></i>
+      </div>
+
+      <div class="os-product-price">{{ product.price }} USD</div>
+    </div>
+
+    <h5 class="os-product-title">{{ product.title }}</h5>
+
+    <p class="os-product-description">
+      {{ product.description.slice(0, 50) + '...' }}
+    </p>
+  </div>
+  <footer class="os-product-footer">
+    <button (click)="addToWishList()" class="os-btn-default add-to-wishlist-btn {{ isActive('wishlist') }}">
+      <i class="bi bi-heart"></i>
+      <i class="bi bi-heart-fill"></i>
+      Wishlist
+    </button>
+    <div class="btns-separator"></div>
+    <button (click)="addToCart()" class="os-btn-default add-to-cart-btn {{ isActive('cartProducts') }}">
+      <i class="bi bi-cart"></i>
+      <i class="bi bi-cart-check-fill"></i>
+      Cart
+    </button>
+  </footer>
+</div>

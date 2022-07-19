@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {products} from "../../fixtures/products";
+import {Product} from "../../interfaces/product";
 
 @Component({
   selector: 'app-main',
@@ -7,7 +9,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() {
+  viewMode = 'grid'
+  products: Product[] = products;
+
+  constructor() {}
+
+  changeView (viewMode = '') {
+    this.viewMode = viewMode;
+  }
+
+  onScroll (page: number) {
+    console.error('page', page);
+
+    this.products = [...this.products, ...products];
   }
 
   ngOnInit(): void {

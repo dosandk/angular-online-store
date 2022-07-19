@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { products } from 'src/app/fixtures/products';
+import {Product} from "../../interfaces/product";
 
 @Component({
   selector: 'app-wishlist',
@@ -6,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wishlist.component.scss']
 })
 export class WishlistComponent implements OnInit {
+
+  products: Product[] = products;
+
+  removeCard () {
+    console.error('remove');
+  }
 
   constructor() { }
 

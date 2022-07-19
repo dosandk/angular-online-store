@@ -4,6 +4,7 @@ import {RouterModule} from "@angular/router";
 
 import { CartPageComponent } from './cart-page.component';
 import { CartComponent } from '../../components/cart/cart.component';
+import {SharedModule} from "../../modules/shared.module";
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { CartComponent } from '../../components/cart/cart.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
