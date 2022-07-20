@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from "../../interfaces/product";
-import {Subject} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {ProductsService} from "../../services/products.service";
+import {LocalService} from "../../services/local.service";
 
 @Component({
   selector: 'app-main',
@@ -15,20 +16,23 @@ export class MainComponent implements OnInit {
   loading = false;
 
   products: Product[] = [];
-  products$ = new Subject<Product[]>();
+  products$ = new BehaviorSubject<Product[]>([]);
 
   constructor(
-    public productsService: ProductsService,
+    private productsService: ProductsService,
+    private localStore: LocalService
   ) {}
 
   ngOnInit(): void {
     const {start, end} = this.getPagination(0);
 
     this.loadMore(start, end);
+    this.viewMode = this.localStore.getData('mode') || 'grid';
   }
 
   changeView(viewMode = '') {
     this.viewMode = viewMode;
+    this.localStore.saveData('mode', this.viewMode);
   }
 
   getPagination(pageIndex: number) {

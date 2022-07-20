@@ -17,7 +17,9 @@ export class AppComponent {
   cartProducts$: Observable<Product[]>;
   wishlistsProducts$: Observable<Product[]>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>
+  ) {
     this.cartProducts$ = store.select(cartSelector);
     this.wishlistsProducts$ = store.select(wishlistSelector);
   }
