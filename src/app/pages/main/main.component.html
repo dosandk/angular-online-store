@@ -14,14 +14,21 @@
     </div>
   </div>
 
-  <app-infinity-list (scrolled)="onScroll($event)" *ngIf="(products.length); else no_products">
+  <app-infinity-list
+    [pageStart]="pageStart"
+    (scrolled)="onScroll($event)"
+    *ngIf="products$ | async as products; else no_products">
 <!-- TODO: check how to dynamically pass app-card to cards-list  -->
 <!-- <app-cards-list [products]="products"></app-cards-list>-->
-    <div class="os-products-list" *ngIf="(products.length);">
+    <div class="os-products-list">
       <app-card
         *ngFor="let product of products;"
         [product]="product"
       ></app-card>
+    </div>
+
+    <div *ngIf="loading">
+      Loading...
     </div>
 
   </app-infinity-list>

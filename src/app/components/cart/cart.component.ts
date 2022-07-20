@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Input, Output, OnChanges} from '@angular/core';
+import {Component, EventEmitter, OnInit, Input, Output} from '@angular/core';
 import { Product } from "../../interfaces/product";
 
 @Component({
@@ -6,14 +6,13 @@ import { Product } from "../../interfaces/product";
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit, OnChanges {
+export class CartComponent implements OnInit {
   constructor() {}
 
   @Input() product!: Product;
 
   @Input() totalPrice: number = 0;
   @Output() totalPriceChange = new EventEmitter<number>();
-
   @Output() removeItem = new EventEmitter<string>();
 
   counter = 1;
@@ -34,6 +33,4 @@ export class CartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {}
-
-  ngOnChanges(changes: any): void {}
 }

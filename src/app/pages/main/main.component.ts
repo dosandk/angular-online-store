@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {products} from "../../fixtures/products";
 import {Product} from "../../interfaces/product";
+import {Subject} from "rxjs";
+import {ProductsService} from "../../services/products.service";
 
 @Component({
   selector: 'app-main',
@@ -8,24 +9,51 @@ import {Product} from "../../interfaces/product";
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-
   viewMode = 'grid'
-  products: Product[] = products;
+  pageStart = 0;
+  pageSize = 10;
+  loading = false;
 
-  constructor() {}
+  products: Product[] = [];
+  products$ = new Subject<Product[]>();
 
-  changeView (viewMode = '') {
+  constructor(
+    public productsService: ProductsService,
+  ) {}
+
+  ngOnInit(): void {
+    const {start, end} = this.getPagination(0);
+
+    this.loadMore(start, end);
+  }
+
+  changeView(viewMode = '') {
     this.viewMode = viewMode;
   }
 
-  onScroll (page: number) {
-    console.error('page', page);
+  getPagination(pageIndex: number) {
+    const start = pageIndex * this.pageSize;
+    const end = start + this.pageSize;
 
-    this.products = [...this.products, ...products];
+    return {start, end};
   }
 
-  ngOnInit(): void {
+  onScroll(pageIndex: number) {
+    const {start, end} = this.getPagination(pageIndex);
+
+    this.loadMore(start, end);
   }
 
+  loadMore (start: number, end: number) {
+    this.loading = true;
+
+    this.productsService.get(start, end)
+      .subscribe(products => {
+        this.products = [...this.products, ...products];
+        this.products$.next(this.products);
+
+        this.loading = false;
+      });
+  }
 }
 

@@ -1,4 +1,10 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Store} from "@ngrx/store";
+import {AppState} from "../../reducers";
+import {addToCart, cartSelector} from "../../reducers/cart";
+import {addToWishList, wishlistSelector} from "../../reducers/wish-list";
+import {Observable} from "rxjs";
+import {Product} from "../../interfaces/product";
 
 @Component({
   selector: 'app-card',
@@ -8,23 +14,29 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 export class CardComponent implements OnInit, OnChanges {
 
   @Input() product!: any;
+  @Input() showFooter = true;
 
-  constructor() {}
+  cartProducts$: Observable<Product[]>;
+  wishlistProducts$: Observable<Product[]>;
 
-  ngOnInit(): void {
+  isActive = (product: Product) => {
+    return product.id === this.product.id;
   }
+
+  constructor(private store: Store<AppState>) {
+    this.cartProducts$ = store.select(cartSelector);
+    this.wishlistProducts$ = store.select(wishlistSelector);
+  }
+
+  ngOnInit(): void {}
 
   ngOnChanges(changes: any): void {}
 
-  addToCart () {
-    console.error('addToCart');
+  addToCart (product: Product) {
+    this.store.dispatch(addToCart({product}));
   }
 
-  addToWishList () {
-    console.error('addToWishList');
-  }
-
-  isActive (type: string): string {
-    return 'active';
+  addToWishList (product: Product) {
+    this.store.dispatch(addToWishList({product}));
   }
 }

@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { Product } from "../../interfaces/product";
-import {products} from '../../fixtures/products';
+import {Store} from "@ngrx/store";
+import {AppState} from "../../reducers";
+import {cartSelector, removeFromCart} from "../../reducers/cart";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cart-page',
@@ -11,19 +14,21 @@ export class CartPageComponent implements OnInit {
   products: Product[] = [];
   totalPrice!: number;
 
-  constructor() {}
+  cartProducts$!: Observable<Product[]>;
+
+  constructor(private store: Store<AppState>) {
+    store.select(cartSelector).subscribe(products => {
+      this.products = products;
+
+      this.totalPrice = products.reduce((accum, item: Product) => {
+        return accum += item.price;
+      }, 0);
+    })
+  }
 
   removeProduct(id: string): void {
-    this.products = this.products.filter((product: Product) => {
-      return product.id !== id;
-    });
+    this.store.dispatch(removeFromCart({id}));
   }
 
-  ngOnInit(): void {
-    this.products = products;
-
-    this.totalPrice = products.reduce((accum, item) => {
-      return accum += item.price;
-    }, 0);
-  }
+  ngOnInit(): void {}
 }

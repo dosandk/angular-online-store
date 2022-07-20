@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { products } from 'src/app/fixtures/products';
 import {Product} from "../../interfaces/product";
+import {Observable} from "rxjs";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../reducers";
+import {wishlistSelector, removeFromWishList} from "../../reducers/wish-list";
 
 @Component({
   selector: 'app-wishlist',
@@ -8,16 +11,33 @@ import {Product} from "../../interfaces/product";
   styleUrls: ['./wishlist.component.scss']
 })
 export class WishlistComponent implements OnInit {
+  pageSize = 3;
+  pageIndex = 0;
+  wishlistProducts$!: Observable<Product[]>;
 
-  products: Product[] = products;
-
-  removeCard () {
-    console.error('remove');
+  constructor(private store: Store<AppState>) {
+    this.wishlistProducts$ = store.select(wishlistSelector);
   }
 
-  constructor() { }
+  getCardsListData (products: Product[]) {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
 
-  ngOnInit(): void {
+    return products.slice(start, end);
   }
 
+  setPage (pageIndex: number) {
+    this.pageIndex = pageIndex;
+  }
+
+  removeCard (id: string) {
+    this.store.dispatch(removeFromWishList({ id }));
+    this.pageIndex = 0;
+  }
+
+  getTotalPages (productsLength: number): number {
+    return Math.ceil(productsLength / this.pageSize);
+  }
+
+  ngOnInit(): void {}
 }

@@ -3,22 +3,26 @@
 
 <!-- TODO: check how to dynamically pass app-card to cards-list  -->
 <!--  <app-cards-list [products]="products"></app-cards-list>-->
-  <ng-container *ngIf="(products.length); else empty_list">
-    <div class="os-products-list">
-      <div class="wish-card-container" *ngFor="let product of products;">
-        <div class="close-btn" (click)="removeCard()">
+  <ng-container *ngIf="wishlistProducts$ | async as products">
+    <div class="os-products-list" *ngIf="products.length; else empty_list">
+      <div class="wish-card-container" *ngFor="let product of getCardsListData(products)">
+        <div class="close-btn" (click)="removeCard(product.id)">
           <i class="bi bi-x"></i>
         </div>
-        <app-card [product]="product"></app-card>
+        <app-card [product]="product" [showFooter]="false"></app-card>
       </div>
     </div>
+
+    <div class="os-products-footer">
+      <app-pagination
+        [activePageIndex]="pageIndex"
+        (pageChange)="setPage($event)"
+        [totalPages]="getTotalPages(products.length)">
+      </app-pagination>
+    </div>
   </ng-container>
-
-  <ng-template #empty_list>
-    There are no products in the list
-  </ng-template>
-
-  <div class="os-products-footer">
-    <app-pagination [totalPages]="12"></app-pagination>
-  </div>
 </div>
+
+<ng-template #empty_list>
+  There are no products in the list
+</ng-template>

@@ -4,6 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {MainModule} from "./pages/main/main.module";
+import { StoreModule } from '@ngrx/store';
+
+import { wishlistReducer, cartReducer } from './reducers';
+import {HttpClientModule} from "@angular/common/http";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -11,8 +17,14 @@ import {MainModule} from "./pages/main/main.module";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    StoreModule.forRoot({
+      wishlist: wishlistReducer,
+      cart: cartReducer
+    }),
     AppRoutingModule,
-    MainModule
+    MainModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

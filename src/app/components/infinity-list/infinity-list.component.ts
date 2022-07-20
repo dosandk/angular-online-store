@@ -20,7 +20,6 @@ export class InfinityListComponent implements OnInit, OnDestroy {
   @ViewChild('anchor', { static: true }) public anchor!: ElementRef;
 
   page = 0;
-  // loader = false;
 
   private observer!: IntersectionObserver;
 

@@ -7,18 +7,25 @@
 
       <ul class="sidebar__nav" data-element="navigation">
         <li>
-          <a routerLink="/" class="link-unstyled">
-          <i class="bi bi-shop"></i><span>Products</span>
+          <a routerLink="/"
+             class="link-unstyled"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-shop"></i><span>Products</span>
           </a>
         </li>
         <li>
-          <a routerLink="/wishlist" class="link-unstyled">
-          <i class="bi bi-star"></i>Wishlist <span>0</span>
+          <a routerLink="/wishlist"
+             class="link-unstyled"
+             routerLinkActive="active">
+            <i class="bi bi-star"></i>Wishlist <span>{{ (wishlistsProducts$ | async)?.length }}</span>
           </a>
         </li>
         <li>
-          <a routerLink="/cart" class="link-unstyled">
-          <i class="bi bi-cart"></i>Cart <span>0</span>
+          <a routerLink="/cart"
+             class="link-unstyled"
+             routerLinkActive="active">
+            <i class="bi bi-cart"></i>Cart <span>{{ (cartProducts$ | async)?.length }}</span>
           </a>
         </li>
       </ul>

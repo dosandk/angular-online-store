@@ -18,14 +18,18 @@
       {{ product.description.slice(0, 50) + '...' }}
     </p>
   </div>
-  <footer class="os-product-footer">
-    <button (click)="addToWishList()" class="os-btn-default add-to-wishlist-btn {{ isActive('wishlist') }}">
+  <footer class="os-product-footer" *ngIf="showFooter">
+    <button class="os-btn-default add-to-wishlist-btn"
+            (click)="addToWishList(product)"
+            [ngClass]="{'active': (wishlistProducts$ | async)?.find(isActive)}">
       <i class="bi bi-heart"></i>
       <i class="bi bi-heart-fill"></i>
       Wishlist
     </button>
     <div class="btns-separator"></div>
-    <button (click)="addToCart()" class="os-btn-default add-to-cart-btn {{ isActive('cartProducts') }}">
+    <button class="os-btn-default add-to-cart-btn"
+            (click)="addToCart(product)"
+            [ngClass]="{'active': (cartProducts$ | async)?.find(isActive)}">
       <i class="bi bi-cart"></i>
       <i class="bi bi-cart-check-fill"></i>
       Cart
