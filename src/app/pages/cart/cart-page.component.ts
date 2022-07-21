@@ -14,8 +14,6 @@ export class CartPageComponent implements OnInit {
   products: Product[] = [];
   totalPrice!: number;
 
-  cartProducts$!: Observable<Product[]>;
-
   constructor(private store: Store<AppState>) {
     store.select(cartSelector).subscribe(products => {
       this.products = products;

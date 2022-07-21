@@ -1,12 +1,10 @@
 <form>
   <div class="os-form-input use-icon">
-    <input id="search-input" type="text" placeholder="Search" />
-<!--           onChange="{{onChange}}}"-->
-<!--           [(ngModel)]="value"-->
-
-<!--           value=""-->
-<!--           placeholder="Search" />-->
-    <label class="bi bi-search input-icon"
-           htmlFor="search-input"></label>
+    <input id="search"
+           name="search"
+           type="text"
+           placeholder="Search"
+           (input)="onSearch($event)"/>
+    <label class="bi bi-search input-icon" htmlFor="search-input"></label>
   </div>
 </form>

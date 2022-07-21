@@ -2,7 +2,7 @@
   <h1 class="page-title">Main</h1>
 
   <div class="filters-panel">
-    <app-search></app-search>
+    <app-search (search$)="onSearch($event)"></app-search>
 
     <div class="list-view-controls">
       <i class="bi bi-list"
@@ -19,7 +19,7 @@
       <app-infinity-list
         [pageStart]="pageStart"
         (scrolled)="onScroll($event)"
-        *ngIf="products$ | async as products; else no_products">
+        *ngIf="products.length; else no_products">
         <!-- TODO: check how to dynamically pass app-card to cards-list  -->
         <!-- <app-cards-list [products]="products"></app-cards-list>-->
         <div class="os-products-list">

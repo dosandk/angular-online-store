@@ -4,6 +4,7 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../modules/shared.module";
 import {SearchComponent} from "../../components/search/search.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {SearchComponent} from "../../components/search/search.component";
         path: '',
         component: MainComponent
       }
-    ])
+    ]),
+    FormsModule
   ],
   exports: [],
 })

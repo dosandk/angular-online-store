@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from "../../interfaces/product";
-import {BehaviorSubject} from "rxjs";
 import {ProductsService} from "../../services/products.service";
 import {LocalService} from "../../services/local.service";
 
@@ -16,7 +15,6 @@ export class MainComponent implements OnInit {
   loading = false;
 
   products: Product[] = [];
-  products$ = new BehaviorSubject<Product[]>([]);
 
   constructor(
     private productsService: ProductsService,
@@ -48,13 +46,27 @@ export class MainComponent implements OnInit {
     this.loadMore(start, end);
   }
 
-  loadMore (start: number, end: number) {
+  onSearch(value: string) {
+    if (this.loading) return;
+
+    this.loading = true;
+
+    this.productsService.search(value)
+      .subscribe(products => {
+        this.products = [...products];
+
+        this.loading = false;
+      });
+  }
+
+  loadMore(start: number, end: number) {
+    if (this.loading) return;
+
     this.loading = true;
 
     this.productsService.get(start, end)
       .subscribe(products => {
         this.products = [...this.products, ...products];
-        this.products$.next(this.products);
 
         this.loading = false;
       });
