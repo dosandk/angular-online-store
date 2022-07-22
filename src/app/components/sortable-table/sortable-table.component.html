@@ -1,1 +1,36 @@
-<p>sortable-table works!</p>
+<table class="table table-striped">
+  <thead class="sortable-table-header">
+  <tr class="d-flex">
+    <th class="col" *ngFor="let column of tableConfig">
+      <span>{{ column?.title  }}</span>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <ng-container *ngIf="products.length; else no_products">
+    <tr class="d-flex" *ngFor="let product of products">
+      <ng-container *ngFor="let column of tableConfig">
+
+        <ng-container *ngIf="column.template;">
+          <td class="col" [innerHTML]="column.template(product[column.id])"></td>
+        </ng-container>
+
+        <td class="col" *ngIf="!column.template;">
+          {{ product[column.id] }}
+        </td>
+
+      </ng-container>
+    </tr>
+  </ng-container>
+
+  <ng-template #no_products>
+    <tr class="d-flex">
+      <td class="col text-center" colSpan="products.length">No products</td>
+    </tr>
+  </ng-template>
+
+  </tbody>
+</table>
+
+

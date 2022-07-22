@@ -15,33 +15,33 @@
   </div>
 
   <ng-container [ngSwitch]="viewMode">
-    <ng-container *ngSwitchCase="'grid'">
-      <app-infinity-list
-        [pageStart]="pageStart"
-        (scrolled)="onScroll($event)"
-        *ngIf="products.length; else no_products">
-        <!-- TODO: check how to dynamically pass app-card to cards-list  -->
-        <!-- <app-cards-list [products]="products"></app-cards-list>-->
-        <div class="os-products-list">
-          <app-card
-            *ngFor="let product of products;"
-            [product]="product"
-          ></app-card>
-        </div>
+    <app-infinity-list
+      [pageStart]="pageStart"
+      (scrolled)="onScroll($event)"
+      *ngIf="products.length; else no_products">
+      <!-- TODO: check how to dynamically pass app-card to cards-list  -->
+      <!-- <app-cards-list [products]="products"></app-cards-list>-->
 
-        <div *ngIf="loading">
-          Loading...
-        </div>
+      <div *ngSwitchCase="'grid'" class="os-products-list" >
+        <app-card
+          *ngFor="let product of products;"
+          [product]="product"
+        ></app-card>
+      </div>
 
-      </app-infinity-list>
-    </ng-container>
+      <app-sortable-table
+        *ngSwitchCase="'table'"
+        [tableConfig]="tableConfig"
+        [products]="products"></app-sortable-table>
 
-    <ng-container *ngSwitchCase="'table'">
-      <div>Table view</div>
-    </ng-container>
+      <div *ngIf="loading">
+        Loading...
+      </div>
+
+    </app-infinity-list>
   </ng-container>
 </div>
 
 <ng-template #no_products>
-  There are no products in the cart
+  No products
 </ng-template>

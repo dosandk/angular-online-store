@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Product} from "../../interfaces/product";
 import {ProductsService} from "../../services/products.service";
 import {LocalService} from "../../services/local.service";
+import {tableConfig} from './sortable-table-config'
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,7 @@ export class MainComponent implements OnInit {
   pageStart = 0;
   pageSize = 10;
   loading = false;
-
+  tableConfig = tableConfig;
   products: Product[] = [];
 
   constructor(

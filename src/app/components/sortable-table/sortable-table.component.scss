@@ -2,7 +2,8 @@
   cursor: pointer;
 }
 
-.sortable-table-image {
+// TODO: find some better solution
+::ng-deep .sortable-table-image {
   height: 80px;
   max-width: 100%;
   padding: 4px;

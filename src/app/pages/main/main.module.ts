@@ -5,11 +5,13 @@ import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../modules/shared.module";
 import {SearchComponent} from "../../components/search/search.component";
 import {FormsModule} from "@angular/forms";
+import {SortableTableComponent} from "../../components/sortable-table/sortable-table.component";
 
 @NgModule({
   declarations: [
     MainComponent,
-    SearchComponent
+    SearchComponent,
+    SortableTableComponent
   ],
   imports: [
     CommonModule,
@@ -25,3 +27,4 @@ import {FormsModule} from "@angular/forms";
   exports: [],
 })
 export class MainModule {}
+
