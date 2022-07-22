@@ -16,8 +16,6 @@ export class PaginationComponent implements OnInit {
   goToPage (event: Event, pageIndex: number) {
     event.preventDefault();
 
-    console.error('pageIndex', pageIndex);
-
     if (pageIndex === this.activePageIndex) return;
     if (pageIndex > this.totalPages - 1 || pageIndex < 0) return;
 

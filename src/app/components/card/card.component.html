@@ -21,7 +21,7 @@
   <footer class="os-product-footer" *ngIf="showFooter">
     <button class="os-btn-default add-to-wishlist-btn"
             (click)="addToWishList(product)"
-            [ngClass]="{'active': (wishlistProducts$ | async)?.find(isActive)}">
+            [ngClass]="{'active': isActive('wishlist')}">
       <i class="bi bi-heart"></i>
       <i class="bi bi-heart-fill"></i>
       Wishlist
@@ -29,7 +29,7 @@
     <div class="btns-separator"></div>
     <button class="os-btn-default add-to-cart-btn"
             (click)="addToCart(product)"
-            [ngClass]="{'active': (cartProducts$ | async)?.find(isActive)}">
+            [ngClass]="{'active': isActive('cart')}">
       <i class="bi bi-cart"></i>
       <i class="bi bi-cart-check-fill"></i>
       Cart

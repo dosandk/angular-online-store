@@ -1,1 +1,9 @@
-<p>notification works!</p>
+<div class="notification success" [style.--value]="duration + 'ms'">
+  <div class="timer"></div>
+  <div class="inner-wrapper">
+    <div class="notification-body">
+      <i class="bi bi-check-circle"></i>
+      {{ notification.message }}
+    </div>
+  </div>
+</div>

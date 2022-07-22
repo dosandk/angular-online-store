@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import {CardComponent} from "../components/card/card.component";
 import {InfinityListComponent} from "../components/infinity-list/infinity-list.component";
 import {CardsListComponent} from "../components/cards-list/cards-list.component";
+import {NotificationComponent} from "../components/notification/notification.component";
 
 @NgModule({
   imports: [
@@ -12,12 +13,14 @@ import {CardsListComponent} from "../components/cards-list/cards-list.component"
   declarations: [
     CardComponent,
     InfinityListComponent,
-    CardsListComponent
+    CardsListComponent,
+    NotificationComponent
   ],
   exports:[
     CardComponent,
     InfinityListComponent,
-    CardsListComponent
+    CardsListComponent,
+    NotificationComponent
   ]
 })
 export class SharedModule { }

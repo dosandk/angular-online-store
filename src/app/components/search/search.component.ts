@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {debounceTime, distinctUntilChanged, Subject, Subscription, switchMap} from "rxjs";
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {debounceTime, distinctUntilChanged, Subject, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   @Output() search$ = new EventEmitter<string>();
 
   inputValue$ = new Subject<string>();
@@ -29,5 +29,9 @@ export class SearchComponent implements OnInit {
       .subscribe((value: string) => {
         this.search$.emit(value);
       });
+  }
+
+  ngOnDestroy () {
+    this.searchSubscription?.unsubscribe();
   }
 }

@@ -3,7 +3,6 @@ import { Product } from "../../interfaces/product";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../reducers";
 import {cartSelector, removeFromCart} from "../../reducers/cart";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cart-page',
@@ -14,7 +13,9 @@ export class CartPageComponent implements OnInit {
   products: Product[] = [];
   totalPrice!: number;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>
+  ) {
     store.select(cartSelector).subscribe(products => {
       this.products = products;
 

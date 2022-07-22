@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {NotificationService} from "../../services/notification.service";
+import {INotification} from "../../interfaces/notification.interface";
 
 @Component({
   selector: 'app-notification-manager',
@@ -6,10 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notification-manager.component.scss']
 })
 export class NotificationManagerComponent implements OnInit {
+  @Input() stackLimit = 3;
 
-  constructor() { }
+  notifications: INotification[] = [];
 
-  ngOnInit(): void {
+  constructor(
+    public notificationService: NotificationService
+  ) {
+    notificationService.message$.subscribe((notification:INotification)  => {
+      if (this.notifications.length === this.stackLimit) {
+        this.notifications.shift();
+      }
+
+      this.notifications.push(notification);
+    });
   }
 
+  onDelete (id: string) {
+    this.notifications = this.notifications.filter(notification => notification.id !== id);
+  }
+
+  ngOnInit(): void {}
 }

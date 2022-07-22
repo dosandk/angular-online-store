@@ -10,10 +10,13 @@ import { wishlistReducer, cartReducer } from './reducers';
 import {HttpClientModule} from "@angular/common/http";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import {SharedModule} from "./modules/shared.module";
+import {NotificationManagerComponent} from "./components/notification-manager/notification-manager.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    NotificationManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +26,7 @@ import { environment } from '../environments/environment';
       cart: cartReducer
     }),
     AppRoutingModule,
+    SharedModule,
     MainModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
