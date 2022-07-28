@@ -10,8 +10,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Output() search$ = new EventEmitter<string>();
 
   inputValue$ = new Subject<string>();
+  // you can unsubscribe in more elegant way. Please consider CartPageComponent implementation
   private searchSubscription?: Subscription;
 
+  // remove unused constructor
   constructor() { }
 
   onSearch (event: Event) {

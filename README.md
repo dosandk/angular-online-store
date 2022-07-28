@@ -25,3 +25,8 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+###Some project recommendations:
+In order to improve the code quality please use any code linter [eslint](https://www.npmjs.com/package/eslint) as an example.
+It's a good practice to document the code. If there is some complex logic, leave the comment there and explain **why** you wrote it. 
+Try to keep your components clean as mush as possible. If it's possible - move logic/calculations to services/utilities functions.

@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ReplaySubject} from 'rxjs';
-import {INotification} from "../interfaces/notification.interface";
+// it's a good practice to use a https://www.typescriptlang.org/tsconfig#paths
+// please consider the updated tsconfig.json file and usage below
+import { INotification } from "@interfaces/notification.interface";
 
+// try to keep this kind of utils functions in a separate file to make services/components as clean as possible
 const getId = () => Math.random().toString(36).substring(2, 9);
 
 @Injectable({

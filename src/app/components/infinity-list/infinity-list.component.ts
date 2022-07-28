@@ -16,13 +16,16 @@ import {
 })
 export class InfinityListComponent implements OnInit, OnDestroy {
   @Input() pageStart = 0;
+  // please divide different decorators with space
   @Output() scrolled = new EventEmitter<number>();
+  // please divide different decorators with space
   @ViewChild('anchor', { static: true }) public anchor!: ElementRef;
 
   page = 0;
 
   private observer!: IntersectionObserver;
 
+  // remove unused constructor
   constructor() {}
 
   onScroll = (entries: any) => {
@@ -36,6 +39,7 @@ export class InfinityListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.page = this.pageStart;
 
+    // try to keep your component clean. Move this configurations to a separate file.
     const options = {
       root: null,
       rootMargin: "20px",

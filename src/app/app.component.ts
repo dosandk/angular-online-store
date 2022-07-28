@@ -1,10 +1,16 @@
+// it's a good practice to divide imports by categories:
+// 1st - third party libraries,
+// 2nd - @angular entities,
+// 3rd - the rest from inner application
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+
 import { Component } from '@angular/core';
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {AppState} from "./reducers";
-import {cartSelector} from "./reducers/cart";
-import {wishlistSelector} from "./reducers/wish-list";
-import {Product} from "./interfaces/product";
+
+import { AppState } from "./reducers";
+import { cartSelector } from "./reducers/cart";
+import { wishlistSelector } from "./reducers/wish-list";
+import { Product } from "@interfaces/product";
 
 @Component({
   selector: 'app-root',
@@ -12,15 +18,14 @@ import {Product} from "./interfaces/product";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-online-store';
+  // please always specify a type of variable (public readonly in case with title)
+  public readonly title = 'angular-online-store';
 
-  cartProducts$: Observable<Product[]>;
-  wishlistsProducts$: Observable<Product[]>;
+  // we can directly assign observable values here during initialization
+  public cartProducts$: Observable<Product[]> = this.store.select(cartSelector);
+  public wishlistsProducts$: Observable<Product[]> = this.store.select(wishlistSelector);
 
   constructor(
     private store: Store<AppState>
-  ) {
-    this.cartProducts$ = store.select(cartSelector);
-    this.wishlistsProducts$ = store.select(wishlistSelector);
-  }
+  ) {}
 }

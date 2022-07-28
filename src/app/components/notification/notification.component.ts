@@ -1,5 +1,7 @@
 import {Component, OnDestroy, OnInit, Input, Output, EventEmitter} from '@angular/core';
+
 import {INotification} from "../../interfaces/notification.interface";
+import { notificationTimeDuration } from '../../constants/notification-time-duration';
 
 @Component({
   selector: 'app-notification',
@@ -12,8 +14,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
   @Output() deleteNotification = new EventEmitter<string>();
 
   timerId!: number;
-  duration = 3000;
+  // 3000 - magic value. move it to constant with appropriate name. Please consider solution:
+  public duration = notificationTimeDuration;
 
+  // remove unused constructor
   constructor() {}
 
   ngOnInit(): void {

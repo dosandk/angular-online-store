@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from "../../interfaces/product";
+
+import {Product} from "@interfaces/product";
 import {ProductsService} from "../../services/products.service";
 import {LocalService} from "../../services/local.service";
 import {tableConfig} from './sortable-table-config'
+import {ViewModeEnum} from '@enums/view-mode.enum';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +12,11 @@ import {tableConfig} from './sortable-table-config'
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  viewMode = 'grid'
+  // viewMode here a good candidate for enum usage. Consider the code refactored below and usage in HTML file
+  public viewMode = ViewModeEnum.GRID;
+
+  public readonly viewModeEnum = ViewModeEnum;
+
   pageStart = 0;
   pageSize = 10;
   loading = false;
@@ -26,10 +32,10 @@ export class MainComponent implements OnInit {
     const {start, end} = this.getPagination(0);
 
     this.loadMore(start, end);
-    this.viewMode = this.localStore.getData('mode') || 'grid';
+    this.viewMode = this.localStore.getData('mode') as ViewModeEnum || ViewModeEnum.GRID;
   }
 
-  changeView(viewMode = '') {
+  changeView(viewMode = ViewModeEnum.GRID) {
     this.viewMode = viewMode;
     this.localStore.saveData('mode', this.viewMode);
   }
@@ -48,6 +54,8 @@ export class MainComponent implements OnInit {
   }
 
   onSearch(value: string) {
+    // use a curly braces when a block contains only one statement. It is considered by many to be best practice
+    // https://eslint.org/docs/latest/rules/curly
     if (this.loading) return;
 
     this.loading = true;
