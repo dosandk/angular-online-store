@@ -6,11 +6,11 @@
 
     <div class="list-view-controls">
       <i class="bi bi-list"
-         (click)="changeView('table')"
-         [ngClass]="{'active' : viewMode === 'table'}"></i>
+         (click)="changeView(viewModeEnum.TABLE)"
+         [ngClass]="{'active' : viewMode === viewModeEnum.TABLE}"></i>
       <i class="bi bi-grid"
-         (click)="changeView('grid')"
-         [ngClass]="{'active' : viewMode === 'grid'}"></i>
+         (click)="changeView(viewModeEnum.GRID)"
+         [ngClass]="{'active' : viewMode === viewModeEnum.GRID}"></i>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
       <!-- TODO: check how to dynamically pass app-card to cards-list  -->
       <!-- <app-cards-list [products]="products"></app-cards-list>-->
 
-      <div *ngSwitchCase="'grid'" class="os-products-list" >
+      <div *ngSwitchCase="viewModeEnum.GRID" class="os-products-list" >
         <app-card
           *ngFor="let product of products;"
           [product]="product"
@@ -30,7 +30,7 @@
       </div>
 
       <app-sortable-table
-        *ngSwitchCase="'table'"
+        *ngSwitchCase="viewModeEnum.TABLE"
         [tableConfig]="tableConfig"
         [products]="products"></app-sortable-table>
 

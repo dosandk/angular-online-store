@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {Product} from "../../interfaces/product";
 import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
+
+import { Component, OnInit } from '@angular/core';
+
+import {Product} from "@interfaces/product";
 import {AppState} from "../../reducers";
 import {wishlistSelector, removeFromWishList} from "../../reducers/wish-list";
 
@@ -11,12 +13,18 @@ import {wishlistSelector, removeFromWishList} from "../../reducers/wish-list";
   styleUrls: ['./wishlist.component.scss']
 })
 export class WishlistComponent implements OnInit {
-  pageSize = 3;
+  // pageSize isn't a public property. Please use as a private readonly in this case
+  private readonly pageSize = 3;
   pageIndex = 0;
-  wishlistProducts$!: Observable<Product[]>;
+  // we can directly assign observable values here during initialization
+  wishlistProducts$: Observable<Product[]> = this.store.select(wishlistSelector);
 
-  constructor(private store: Store<AppState>) {
-    this.wishlistProducts$ = store.select(wishlistSelector);
+  constructor(private store: Store<AppState>) {}
+
+  // the trackBy used to improve the performance of the angular project
+  // https://www.red-gate.com/simple-talk/blogs/explain-ngfor-trackby-in-angular/
+  public trackByProductFn(index: number, item: Product): string {
+    return item.id;
   }
 
   getCardsListData (products: Product[]) {
@@ -38,6 +46,6 @@ export class WishlistComponent implements OnInit {
   getTotalPages (productsLength: number): number {
     return Math.ceil(productsLength / this.pageSize);
   }
-
+  // try to remove unused methods
   ngOnInit(): void {}
 }

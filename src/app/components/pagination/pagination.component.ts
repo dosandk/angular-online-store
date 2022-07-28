@@ -11,16 +11,18 @@ export class PaginationComponent implements OnInit {
 
   @Output() pageChange = new EventEmitter<number>();
 
+  // remove unused constructor
   constructor() { }
 
   goToPage (event: Event, pageIndex: number) {
     event.preventDefault();
 
+    // use a curly braces when a block contains only one statement. It is considered by many to be best practice
+    // https://eslint.org/docs/latest/rules/curly
     if (pageIndex === this.activePageIndex) return;
     if (pageIndex > this.totalPages - 1 || pageIndex < 0) return;
 
     this.activePageIndex = pageIndex;
-
     this.pageChange.emit(this.activePageIndex);
   }
 
@@ -40,6 +42,7 @@ export class PaginationComponent implements OnInit {
     return new Array(length).fill(true);
   }
 
+  // remove unused method
   ngOnInit(): void {
   }
 

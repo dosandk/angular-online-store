@@ -6,21 +6,23 @@ import {InfinityListComponent} from "../components/infinity-list/infinity-list.c
 import {CardsListComponent} from "../components/cards-list/cards-list.component";
 import {NotificationComponent} from "../components/notification/notification.component";
 
+// in order to avoid the duplication please consider the following solution:
+const COMPONENTS = [
+  CardComponent,
+  InfinityListComponent,
+  CardsListComponent,
+  NotificationComponent
+];
+
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    CardComponent,
-    InfinityListComponent,
-    CardsListComponent,
-    NotificationComponent
+    ...COMPONENTS
   ],
   exports:[
-    CardComponent,
-    InfinityListComponent,
-    CardsListComponent,
-    NotificationComponent
+    ...COMPONENTS
   ]
 })
 export class SharedModule { }

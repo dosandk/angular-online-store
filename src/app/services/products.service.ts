@@ -1,7 +1,9 @@
+import {Observable, catchError, throwError} from "rxjs";
+
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse, HttpParams, HttpParamsOptions} from '@angular/common/http'
-import {Observable, catchError, throwError} from "rxjs";
-import {Product} from "../interfaces/product";
+
+import {Product} from "@interfaces/product";
 // NOTE: temporary keep it for debug purpose
 // import {products} from "../fixtures/products";
 // import {delay, of} from "rxjs";
@@ -20,7 +22,8 @@ export class ProductsService {
   //   return of(products).pipe(delay(1000));
   // }
 
-  private load (params: HttpParamsOptions) {
+ // try to keep private (less meaningful) methods at the bottom
+  private load (params: HttpParamsOptions) { // always try to provide return value type (functions, objects etc.)
     return this.http.get<Product[]>(`${environment.BACKEND_URL}api/rest/products`, {
       params: new HttpParams(params)
     })

@@ -9,8 +9,16 @@
   margin-left: 5px;
 }
 
-.list-view-controls .bi.active {
-  color: var(--primary-bg);
+// try to use sass conventions as much as possible. Code becomes more readable and cleaner
+// consider refactoring below as an example:
+.list-view-controls {
+  .bi {
+    &.active {
+      .list-view-controls {
+        color: var(--primary-bg);
+      }
+    }
+  }
 }
 
 .products-page {

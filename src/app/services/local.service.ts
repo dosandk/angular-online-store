@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class LocalService {
 
+  // remove the constructor if we don't use it
   constructor() { }
 
   public saveData(key: string, value: string) {
