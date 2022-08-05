@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Product} from "../../interfaces/product";
+
+import {Product} from "@interfaces/product";
 
 interface ITableConfig {
   id: string;
@@ -19,9 +20,5 @@ export class SortableTableComponent implements OnInit {
   @Input() tableConfig: ITableConfig[] = [];
   @Input() products: Product[] = [];
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

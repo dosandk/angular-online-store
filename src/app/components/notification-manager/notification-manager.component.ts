@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NotificationService} from "../../services/notification.service";
-import {INotification} from "../../interfaces/notification.interface";
+import {Notification} from "@interfaces/notification.interface";
 
 @Component({
   selector: 'app-notification-manager',
@@ -10,12 +10,12 @@ import {INotification} from "../../interfaces/notification.interface";
 export class NotificationManagerComponent implements OnInit {
   @Input() stackLimit = 3;
 
-  notifications: INotification[] = [];
+  notifications: Notification[] = [];
 
   constructor(
     public notificationService: NotificationService
   ) {
-    notificationService.message$.subscribe((notification:INotification)  => {
+    notificationService.message$.subscribe((notification: Notification)  => {
       if (this.notifications.length === this.stackLimit) {
         this.notifications.shift();
       }

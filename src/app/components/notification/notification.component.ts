@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {INotification} from "../../interfaces/notification.interface";
+import {Notification} from "@interfaces/notification.interface";
 
 @Component({
   selector: 'app-notification',
@@ -8,13 +8,11 @@ import {INotification} from "../../interfaces/notification.interface";
 })
 export class NotificationComponent implements OnInit, OnDestroy {
 
-  @Input() notification!: INotification;
+  @Input() notification!: Notification;
   @Output() deleteNotification = new EventEmitter<string>();
 
   timerId!: number;
   duration = 3000;
-
-  constructor() {}
 
   ngOnInit(): void {
     this.timerId = setTimeout(() => {

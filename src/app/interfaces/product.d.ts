@@ -3,7 +3,7 @@ export interface Product {
   title: string;
   count?: number;
   price: number;
-  rating: number | null;
+  rating?: number;
   description: string;
   brand: string;
   images: Array<{ url: string, source: string }>;

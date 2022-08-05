@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from "../../interfaces/product";
+import {Product} from "@interfaces/product";
 import {ProductsService} from "../../services/products.service";
 import {LocalService} from "../../services/local.service";
 import {tableConfig} from './sortable-table-config'

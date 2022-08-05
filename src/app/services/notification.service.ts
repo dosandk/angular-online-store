@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
+
 import {ReplaySubject} from 'rxjs';
-import {INotification} from "../interfaces/notification.interface";
+
+import {Notification} from "@interfaces/notification.interface";
 
 const getId = () => Math.random().toString(36).substring(2, 9);
 
@@ -8,7 +10,7 @@ const getId = () => Math.random().toString(36).substring(2, 9);
   providedIn: 'root'
 })
 export class NotificationService {
-  message$ = new ReplaySubject<INotification>();
+  message$ = new ReplaySubject<Notification>();
 
   show(neMessage: string) {
     const obj = {

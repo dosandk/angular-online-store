@@ -1,9 +1,12 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+
 import {Store} from "@ngrx/store";
-import {AppState} from "../../reducers";
+import {Subject, takeUntil} from "rxjs";
+
 import {addToCart, cartSelector, removeFromCart} from "../../reducers/cart";
 import {addToWishList, removeFromWishList, wishlistSelector} from "../../reducers/wish-list";
-import {Product} from "../../interfaces/product";
+import {AppState} from "../../reducers";
+import {Product} from "@interfaces/product";
 import { NotificationService } from 'src/app/services/notification.service';
 
 type productsList = 'cart' | 'wishlist';
@@ -13,13 +16,14 @@ type productsList = 'cart' | 'wishlist';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnDestroy {
 
   @Input() product!: any;
   @Input() showFooter = true;
 
   cartProducts = [];
   wishlistProducts = [];
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   isActive = (type: productsList) => {
     const lists = {
@@ -35,11 +39,13 @@ export class CardComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     store.select(cartSelector)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(products => {
         this.cartProducts = products;
       });
 
     store.select(wishlistSelector)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(products => {
         this.wishlistProducts = products;
       })
@@ -69,6 +75,10 @@ export class CardComponent implements OnInit {
       this.store.dispatch(addToWishList({product}));
       this.showNotification(product.title, 'added to wishlist');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
   }
 
   ngOnInit(): void {}

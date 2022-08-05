@@ -23,8 +23,6 @@ export class InfinityListComponent implements OnInit, OnDestroy {
 
   private observer!: IntersectionObserver;
 
-  constructor() {}
-
   onScroll = (entries: any) => {
     const [target] = entries;
 

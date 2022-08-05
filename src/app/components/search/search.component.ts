@@ -9,10 +9,8 @@ import {debounceTime, distinctUntilChanged, Subject, Subscription} from "rxjs";
 export class SearchComponent implements OnInit, OnDestroy {
   @Output() search$ = new EventEmitter<string>();
 
-  inputValue$ = new Subject<string>();
+  private inputValue$ = new Subject<string>();
   private searchSubscription?: Subscription;
-
-  constructor() { }
 
   onSearch (event: Event) {
     const value = (event.target as HTMLInputElement).value;

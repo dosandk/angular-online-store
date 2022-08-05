@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "../../interfaces/product";
+
 import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
+
+import {Product} from "@interfaces/product";
 import {AppState} from "../../reducers";
 import {wishlistSelector, removeFromWishList} from "../../reducers/wish-list";
 
@@ -17,6 +19,10 @@ export class WishlistComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
     this.wishlistProducts$ = store.select(wishlistSelector);
+  }
+
+  public trackByProduct(index: number, item: Product): string {
+    return item.id;
   }
 
   getCardsListData (products: Product[]) {

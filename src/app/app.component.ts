@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {AppState} from "./reducers";
 import {cartSelector} from "./reducers/cart";
 import {wishlistSelector} from "./reducers/wish-list";
-import {Product} from "./interfaces/product";
+import {Product} from "@interfaces/product";
 
 @Component({
   selector: 'app-root',
@@ -12,15 +12,12 @@ import {Product} from "./interfaces/product";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-online-store';
+  public readonly title = 'angular-online-store';
 
-  cartProducts$: Observable<Product[]>;
-  wishlistsProducts$: Observable<Product[]>;
+  public cartProducts$: Observable<Product[]> = this.store.select(cartSelector);
+  public wishlistsProducts$: Observable<Product[]> = this.store.select(wishlistSelector);
 
   constructor(
     private store: Store<AppState>
-  ) {
-    this.cartProducts$ = store.select(cartSelector);
-    this.wishlistsProducts$ = store.select(wishlistSelector);
-  }
+  ) {}
 }

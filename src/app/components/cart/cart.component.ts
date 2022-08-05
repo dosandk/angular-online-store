@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Input, Output} from '@angular/core';
-import { Product } from "../../interfaces/product";
+
+import { Product } from "@interfaces/product";
 
 @Component({
   selector: 'app-cart',
@@ -7,8 +8,6 @@ import { Product } from "../../interfaces/product";
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  constructor() {}
-
   @Input() product!: Product;
 
   @Input() totalPrice: number = 0;
