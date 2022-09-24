@@ -48,7 +48,7 @@ export class CardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(products => {
         this.wishlistProducts = products;
-      })
+      });
   }
 
   showNotification (title: string, action: string) {
