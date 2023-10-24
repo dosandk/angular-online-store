@@ -5,43 +5,26 @@
     <app-search (search$)="onSearch($event)"></app-search>
 
     <div class="list-view-controls">
-      <i class="bi bi-list"
-         (click)="changeView('table')"
-         [ngClass]="{'active' : viewMode === 'table'}"></i>
-      <i class="bi bi-grid"
-         (click)="changeView('grid')"
-         [ngClass]="{'active' : viewMode === 'grid'}"></i>
+      <i class="bi bi-list" (click)="changeView('table')" [ngClass]="{ active: viewMode === 'table' }"></i>
+      <i class="bi bi-grid" (click)="changeView('grid')" [ngClass]="{ active: viewMode === 'grid' }"></i>
     </div>
   </div>
 
   <ng-container [ngSwitch]="viewMode">
-    <app-infinity-list
-      [pageStart]="pageStart"
-      (scrolled)="onScroll($event)"
-      *ngIf="products.length; else no_products">
+    <app-infinity-list [pageStart]="pageStart" (scrolled)="onScroll($event)" *ngIf="products.length; else no_products">
       <!-- TODO: check how to dynamically pass app-card to cards-list  -->
       <!-- <app-cards-list [products]="products"></app-cards-list>-->
 
-      <div *ngSwitchCase="'grid'" class="os-products-list" >
-        <app-card
-          *ngFor="let product of products;"
-          [product]="product"
-        ></app-card>
+      <div *ngSwitchCase="'grid'" class="os-products-list">
+        <app-card *ngFor="let product of products" [product]="product"></app-card>
       </div>
 
-      <app-sortable-table
-        *ngSwitchCase="'table'"
-        [tableConfig]="tableConfig"
+      <app-sortable-table *ngSwitchCase="'table'" [tableConfig]="tableConfig"
         [products]="products"></app-sortable-table>
 
-      <div *ngIf="loading">
-        Loading...
-      </div>
-
+      <div *ngIf="loading">Loading...</div>
     </app-infinity-list>
   </ng-container>
 </div>
 
-<ng-template #no_products>
-  No products
-</ng-template>
+<ng-template #no_products> No products </ng-template>
